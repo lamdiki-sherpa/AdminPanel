@@ -2,10 +2,14 @@ import React,{useContext, useEffect, useState} from 'react'
 import './UserPopUp.css'
 import $ from 'jquery'
 import UserContext from '../context/UserContext/UserContext'
+import RoleContext from '../context/RoleContext/RoleContext'
 import imageplus from '../../image/plus.png'
 import {AiFillCloseSquare} from 'react-icons/ai'
+import {AiFillPlusSquare} from 'react-icons/ai'
+import RolePopUp from './RolePopUp'
 const UserPopUp = ({user,setUser}) => {
-    const {active,setActive,addUser,exit,setExit}=useContext(UserContext)
+    const {active,setActive,addUser,exit,setExit,roleList}=useContext(UserContext)
+    const {setRole,initialValue,editing,setEditing}=useContext(RoleContext)
     const [error,setError]=useState({})
     const [submit,setSubmit]=useState(false)
     const [isUploaded, setIsUploaded] = useState(false);
@@ -40,8 +44,8 @@ const UserPopUp = ({user,setUser}) => {
         addUser()
         setSubmit(false)
         if(exit){
-            $(".popupBg").fadeOut(500)
-            $(".popUp").fadeOut(500)
+            $(".addpopupBg").fadeOut(500)
+            $(".addpopUp").fadeOut(500)
         }
        
      }
@@ -59,21 +63,30 @@ const UserPopUp = ({user,setUser}) => {
     const {name,value}=e.target
     setUser({...user,[name]:value})
     }
-    const handleImageUpload = (e) => {
-        if (e.target.files && e.target.files[0]) {
-          let reader = new FileReader();
-          reader.onload = function (e) {
-            setImage(e.target.result);
-            setIsUploaded(true);
-          };
-          reader.readAsDataURL(e.target.files[0]);
-        }
-      };
-  const splitImage=image.split(",")[1]
-  console.log("split",splitImage);
+    const handleRole=()=>{
+     $(".rolepopupBg").fadeIn(500);
+     $(".rolepopUp").fadeIn(500);
+     setRole(initialValue)
+     setEditing(false)
+    }
+  //   const handleImageUpload = (e) => {
+  //       if (e.target.files && e.target.files[0]) {
+  //         let reader = new FileReader();
+  //         reader.onload = function (e) {
+  //           setImage(e.target.result);
+  //           setIsUploaded(true);
+  //         };
+  //         reader.readAsDataURL(e.target.files[0]);
+  //       }
+  //     };
+  // const splitImage=image.split(",")[1]
+  // console.log("split",splitImage);
   return (
+    <>
     <div className='popupBg addpopupBg'>
     <div className='popUp addpopUp'>
+      <div className='header'>Add user</div>
+      <div className='body'>
         <div>
             <label>Name</label>
             <input type='text'
@@ -101,14 +114,30 @@ const UserPopUp = ({user,setUser}) => {
              onChange={handleChange}/>
              {error.password && (<div>{error.password}</div>)}
         </div>
-        <div className='mb-3'>
+
+        <div className='mb-3 plus__container'>
             <label>Rolename</label>
-            <input type='text'
+            <div className='d-flex'>
+            {/* <input type='text'
             className='form-control' 
             name='roleName'
              value={user.roleName}
-             onChange={handleChange}/>
+             onChange={handleChange}/> */}
+             <select className='form-select mx-1'  name='roleName'  value={user.roleName}  onChange={handleChange} >
+              <option value="" disabled selected>Select Role</option>
+              {roleList.map((list)=>{
+               const {roleName,_id}=list
+               return <option key={_id} value={roleName}> 
+                       {roleName}
+                      </option>
+              })}
+             </select>
              {error.roleName && (<div>{error.roleName}</div>)}
+             <button className='plus__icon' onClick={handleRole}>
+          <AiFillPlusSquare/>
+        </button>
+        </div>
+       
         </div>
         <div>
 
@@ -120,7 +149,7 @@ const UserPopUp = ({user,setUser}) => {
         <input type='checkbox' id='exit' onChange={()=>setExit(!exit)} checked={exit}/>
         <label className='ms-2' htmlFor='exit'>Exit on checked</label>
         </div>
-        <div className='imageUpload'>
+        {/* <div className='imageUpload'>
         {isUploaded ? (
             <div className="image_box">
               <img src={image} alt="" style={{ height: "100px" }} />
@@ -142,13 +171,15 @@ const UserPopUp = ({user,setUser}) => {
               </label>
             </div>
           )}
-        </div>
+        </div> */}
         
         <button className='btn btn-primary' onClick={handleSubmit}>submit</button>
         <button className='btn btn-danger mx-1' onClick={handleCancel}>cancel</button>
-        
+        </div>
     </div>
     </div>
+        <RolePopUp/>
+    </>
   )
 }
 

@@ -3,16 +3,21 @@ import UserContext from '../context/UserContext/UserContext'
 import $ from 'jquery'
 import './action.css'
 const Edit = () => {
-    const {editpopup,setEditpopup,user,setUser}=useContext(UserContext)
+    const {editpopup,setEditpopup,user,setUser,EditUser}=useContext(UserContext)
     const [isChecked,setIsChecked]=useState(false)
+    const [editSubmit,setEditSubmit]=useState(false)
+    
+    const [error,setError]=useState({})
     useEffect(()=>{
     if(editpopup){
     $('.editpopupBg').fadeIn(500)
     $('.editpopUp').fadeIn(500)
     }
     },[editpopup])
-    const handleEdit=()=>{
-
+    const handleEdit=(e)=>{
+    e.preventDefault()
+    setError(validate(user))
+    setEditSubmit(true)
     }
     const handleClose=()=>{
         $('.editpopupBg').fadeOut(500)
@@ -30,11 +35,23 @@ const Edit = () => {
             errors.name = "name is required"
         }
 
-        if (!value.role) {
-            errors.role = "role is required"
+        if (!value.roleName) {
+            errors.roleName = "role is required"
         }
         return errors
     }
+    useEffect(() => {
+       if(Object.keys(error).length===0 && editSubmit){
+        EditUser()
+        setEditSubmit(false)
+        if(isChecked){
+            $(".editpopupBg").fadeOut(500)
+            $(".editpopUp").fadeOut(500)
+        }
+       }else{
+        setEditSubmit(false)
+       }
+    }, [error])
   return (
     <div className='popupBg editpopupBg'>
         <div className="popUp editpopUp">
@@ -47,14 +64,14 @@ const Edit = () => {
                                 <div className="form-group">
                                     <label htmlFor="name">Name</label>
                                     <input className='form-control' onChange={handleChange} name="name" value={user.name} type="text" id="name" />
-                                    {/* {error.name && (<p>{error.name}</p>)} */}
+                                    {error.name && (<p>{error.name}</p>)}
                                 </div>
                             </div>
                             <div className="col-md-6">
                                 <div className="form-group">
                                     <label htmlFor="role">Role</label>
-                                    <input className='form-control' onChange={handleChange} name="role" value={user.role} type="text" id="role" />
-                                    {/* {error.role && (<p>{error.role}</p>)} */}
+                                    <input className='form-control' onChange={handleChange} name="roleName" value={user.roleName} type="text" id="role" />
+                                    {error.roleName && (<p>{error.roleName}</p>)}
                                 </div>
                             </div>
                         </div>

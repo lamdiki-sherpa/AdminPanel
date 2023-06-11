@@ -93,7 +93,7 @@ const UserList = () => {
       selector:(row)=>(
         <>
         <span onClick={()=>handleView(row._id)}><GrFormView/></span>
-        <span className="mx-1" onClick={()=>handleEdit(row._id)}><AiOutlineEdit/></span>
+        <span className="mx-1" onClick={()=>handleEdit(row)}><AiOutlineEdit/></span>
         <span className="mx-1" onClick={()=>handleDelete(row._id)}><AiOutlineDelete/></span>
         </>
       )
@@ -114,9 +114,10 @@ const handleView=(id)=>{
 setViewpopUp(true)
 setId(id)
 }
-const handleEdit=(id)=>{
+const handleEdit=(row)=>{
 setEditpopup(true)
-setId(id)
+setId(row._id)
+setUser({name:row.name,roleName:row.roleName})
 }
 const handleDelete=(id)=>{
 console.log('delete')

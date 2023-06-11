@@ -3,8 +3,9 @@ import { Sidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
 import { NavLink } from 'react-router-dom';
 import './Sidebar.css'
 import UserContext from '../context/UserContext/UserContext'
+
 const SidebarComponent = () => {
-  const {show}=useContext(UserContext)
+  const {show,smallScreen,setSmallScreen}=useContext(UserContext)
   const [search,setSearch]=useState('')
   const itemsB = [
     {
@@ -18,6 +19,9 @@ const SidebarComponent = () => {
 const item=itemsB.filter((list)=>{
 return list.name.toLowerCase().includes(search.toLowerCase())
 })
+
+
+
   return (
     <div className="sidebar">
 { show && <Sidebar>

@@ -18,7 +18,7 @@ const UserState = (props) => {
   const [loading, setLoading] = useState(true);
   const [active,setActive]=useState(false)
   const [exit,setExit]=useState(false)
-  const[show,setShow]=useState(true)
+  const[show,setShow]=useState(false)
   const [viewpopUp,setViewpopUp]=useState(false)
   const [info, setInfo] = useState([])
   const [id, setId] = useState(null)
@@ -26,7 +26,8 @@ const UserState = (props) => {
   const [isDeleting,setIsDeleting]=useState(false)
   const [editpopup,setEditpopup]=useState(false)
   const [originalList, setOriginalList] = useState(null)
- 
+  const [smallScreen,setSmallScreen]=useState(false)
+  
   useEffect(() => {
     GetUser();
   }, [status]);
@@ -72,6 +73,25 @@ const UserState = (props) => {
       toast.error(result.Message,{theme:"light"})
     }
   })}
+const EditUser=()=>{
+const dataForm={
+  flag:"U",
+  name:user.name,
+  roleName:user.roleName,
+  UserID:id,
+  Type:"POST",
+  FetchURL:`${url}/user`
+}
+GetData(dataForm).then(function(result){
+  if(result.StatusCode===200){
+    toast.success(result.Message,{theme:"light"})
+    GetUser()
+  }else{
+    toast.error(result.Message,{theme:"light"})
+  }
+})
+  }
+
 useEffect(()=>{
 GetInfoData()
 },[id])
@@ -121,14 +141,38 @@ GetInfoData()
         }
     })
 
+
+  
+  }
+const [roleList,setRoleList]=useState([])
+
+useEffect(()=>{
+    GetActiveRole()
+},[])
+const GetActiveRole=()=>{
+    const dataForm = {
+        flag: "S",
+        status:"1",
+        Type: "POST",
+        FetchURL: `${url}/roleName`,
+      };
+      GetData(dataForm).then(function (result) {
+        if (result.StatusCode === 200) {
+          const postResult = result.Values ? result.Values : "";
+          setRoleList(postResult);
+          setLoading(false)
+        } else {
+          setLoading(false)
+        }
+      });
 }
   return (
     <UserContext.Provider
       value={{ initialValue, user, setUser, userList,setUserList, loading,status,setStatus,
-        GetUser,active,setActive ,addUser,
+        GetUser,active,setActive ,addUser,EditUser,roleList,GetActiveRole,
         exit,setExit,show,setShow,viewpopUp,setViewpopUp,info,
         setInfo,deletepopUp,setDeletepopUp,setId,id,deleteData, setIsDeleting,isDeleting,
-        editpopup,setEditpopup,originalList, setOriginalList}}
+        editpopup,setEditpopup,originalList, setOriginalList,smallScreen,setSmallScreen}}
     >
       {props.children}
     </UserContext.Provider>

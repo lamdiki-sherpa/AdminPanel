@@ -8,6 +8,7 @@ import Layout from './component/Layout/Layout';
 import UserList from './component/User/UserList';
 import { useContext } from 'react';
 import UserState from './component/context/UserContext/UserState';
+import RoleState from './component/context/RoleContext/RoleState';
 function App() {
   const {user}=useContext(AuthContext)
   console.log(user);
@@ -19,6 +20,7 @@ function App() {
     <div >
       {user && (
       <UserState>
+        <RoleState>
       <Layout>
         <Routes>
           <Route path='/dashboard' element={<Dashboard/>} />
@@ -26,6 +28,7 @@ function App() {
 
         </Routes>
       </Layout>
+      </RoleState>
       </UserState>)}
     </div>
     </>

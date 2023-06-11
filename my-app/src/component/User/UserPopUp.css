@@ -15,9 +15,12 @@
     width:50%;
     transform: translate(-50%,-50%);
     background-color: white;
-    padding: 20px;
+    min-height: 90vh;
     display: none;
     z-index: 1000;
+}
+.body{
+ padding: 20px;
 }
 .image_box{
     cursor: pointer;
@@ -45,4 +48,17 @@
     position: absolute;
     right: 0;
     top: 0;
+}
+
+.plus__icon{
+    cursor: pointer;
+    border-radius: 5px;
+    padding: 5px;
+  
+}
+.header{
+    background-color: var(--primary);
+    width: 100%;
+    color: white;
+    padding: 10px;
 }

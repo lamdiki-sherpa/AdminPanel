@@ -1,13 +1,15 @@
-import React,{useContext, useState}from 'react'
+import React,{useContext, useEffect, useState}from 'react'
 import { useNavigate } from 'react-router-dom'
 import AuthContext from '../context/AuthContext'
 import './Navbar.css'
 import {FaBars} from 'react-icons/fa'
 import UserContext from '../context/UserContext/UserContext'
 import $ from 'jquery'
+import UsewindowDimension from '../hooks/UsewindowDimension.js'
 const Navbar = () => {
     const navigate=useNavigate()
-    const {show,setShow}=useContext(UserContext)
+    const {width}=UsewindowDimension()
+    const {show,setShow,smallScreen,setSmallScreen}=useContext(UserContext)
     const {logout,user}=useContext(AuthContext)
     const handleClick=()=>{
       
@@ -23,6 +25,21 @@ const Navbar = () => {
     const handleSidebar=()=>{
       setShow(!show)
     }
+
+    console.log(smallScreen)
+    console.log("width",width)
+
+    useEffect(() => {
+      if(width<960){
+        setShow(false)
+        setSmallScreen(true)
+      }else{
+        setShow(true)
+        setSmallScreen(false)
+      }
+    }, [width])
+    
+
     const handleClose=()=>{
       $('.logoutpopupBg').fadeOut(500)
       $('.logoutpopUp').fadeOut(500)
@@ -39,6 +56,8 @@ const Navbar = () => {
       </div>
     )
   }
+
+
   return (
 <nav className="navbar navbar-light navbar__header">
   <div className="container-fluid">
