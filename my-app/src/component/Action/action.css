@@ -1,0 +1,23 @@
+.popUp{
+    position: relative;
+}
+.close{
+    position: absolute;
+    right: 10px;
+    top:0;
+}
+.popUp__header{
+    position:absolute;
+    top:0;
+    left: 0;
+    background-color: var(--primary);
+    color:var(--color);
+    width: 100%;
+    padding: 5px;
+    
+    
+}
+.popup-body{
+    /* margin-top: 15px; */
+    padding:20px;
+}

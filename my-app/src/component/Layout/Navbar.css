@@ -1,0 +1,18 @@
+.navbar__header{
+    width: 100%;
+    background-color: var(--primary);
+    color:var(--color);
+    padding:15px;
+}
+.info{
+    height: 30px;
+}
+.info h6{
+    margin-bottom:-4px;
+}
+.icon{
+    cursor: pointer;
+}
+.logoutpopUp{
+    color:black;
+}

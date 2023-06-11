@@ -1,0 +1,25 @@
+.login__main{
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+.login__main .wrapper{
+    background-color:var(--primary);
+    color:var(--color);
+    padding:20px;
+    width:25%;
+    border-radius: 5px;
+    
+}
+.eye__icon{
+
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 5px;
+    cursor: pointer;
+}

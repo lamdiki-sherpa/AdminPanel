@@ -1,0 +1,18 @@
+.css-dip3t8{
+    background-color: #2158a5 !important;
+    min-height:calc(100vh - 66px);
+    
+}
+
+.sidebar a{
+    color: white ;
+    display: block;
+}
+
+.css-1t8x7v1 >.ps-menu-button:hover a{
+    color: blue !important;
+}
+
+.search{
+    margin:20px;
+}
