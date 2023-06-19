@@ -6,6 +6,8 @@
     padding: 15px;
     border-radius: 10px;
     width: calc(100vw - 290px);
+    margin-left: 270px;
+    margin-top: 90px;
 }
 .side__contentshow{
     margin: 20px;
@@ -13,6 +15,7 @@
     padding: 15px;
     border-radius: 10px;
     width: calc(100vw - 0px);
+    margin-top: 90px;
 }
 .siderbar{
     width: 250px;
@@ -23,3 +26,9 @@
 .main{
     min-height: calc(100vh - 66px);
 }
+.logoutpopUp{
+    color: black;
+    padding: 20px;
+    min-height: 30vh !important;
+    z-index: 1000;
+ }

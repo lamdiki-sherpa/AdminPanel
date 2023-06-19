@@ -34,6 +34,7 @@ const GetRole=()=>{
           setLoading(false)
         } else {
           setLoading(false)
+          setRoleList([])
         }
       });
 }
@@ -93,6 +94,7 @@ const deleteRole= () => {
           toast.success(result.Message,{theme:"light"})
           setRole(initialValue)
           GetActiveRole()
+          setEditing(false)
           GetRole()
 
         }else{

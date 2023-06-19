@@ -7,11 +7,13 @@ import DataTable from "react-data-table-component";
 import Spinner from "../Spinner";
 import GetData from "../hooks/GetData";
 import {toast} from 'react-toastify';
-import { AiOutlineDelete, AiOutlineEdit } from 'react-icons/ai'
+import { AiOutlineDelete, AiOutlineEdit ,AiFillFilePdf,AiFillFileExcel} from 'react-icons/ai'
 import { GrFormView } from 'react-icons/gr'
 import View from "../Action/View";
 import Delete from "../Action/Delete";
 import Edit from "../Action/Edit";
+import jsPDF from 'jspdf'
+import "jspdf-autotable"
 const UserList = () => {
   const { setUser, user, initialValue, userList, loading ,
     status,setStatus,GetUser,setActive,setExit,setViewpopUp,setId,
@@ -124,6 +126,7 @@ console.log('delete')
 setDeletepopUp(true)
 setId(id)
 }
+//================================search================================
 const searchInput=useRef('')
 const handleSearch=(e)=>{
 e.preventDefault()
@@ -144,6 +147,85 @@ else{
 }
 
 }
+//========================================PDF============================================
+const pdfTable=userList.map((item,index)=>({
+  ...item,
+  Index: index+1,
+  Status:item.status==="1"?"Active":"Deactive"
+}))
+console.log("table",pdfTable);
+const column=[
+  {header:"S.N",field:"Index"},
+  {header:"Name",field:"name"},
+  {header:"Role",field:"roleName"},
+  {header:"Email",field:"email"},
+  {header:"Status",field:"Status"}
+]
+const exportColumn=column.map((col)=>({
+  title:col.header,
+  dataKey:col.field
+}))
+const ToPdf=()=>{
+  const doc=new jsPDF("p","pt","a4",true)
+  var midPage=doc.internal.pageSize.getWidth()/2
+  doc.setFontSize(18)
+  doc.text("User list",midPage,50,"center")
+  doc.autoTable({
+    startY:70,
+    theme:"grid",
+    columns:exportColumn,
+    body:pdfTable
+  })
+
+  doc.save("table.pdf")
+}
+//================================excel=================
+const dataToExcel = userList.map((d, i) => ({
+  "S.N.": i + 1,
+  Name: d.name,
+  Email: d.email,
+  Role: d.roleName,
+  Status: d.status === "1" ? "Active" : "Deactive",
+}));
+
+const toExcel = () => {
+  console.log("excel");
+  import("xlsx").then((xlsx) => {
+    const worksheet = xlsx.utils.json_to_sheet(dataToExcel);
+    var wscols = [
+      { wch: 5 },
+      { wch: 20 },
+      { wch: 20 },
+      { wch: 15 },
+      { wch: 15 },
+    ];
+    worksheet["!cols"] = wscols;
+    const workbook = { Sheets: { data: worksheet }, SheetNames: ["data"] };
+    const excelBuffer = xlsx.write(workbook, {
+      bookType: "xlsx",
+      type: "array",
+    });
+    saveAsExcelFile(excelBuffer, "userlist");
+  });
+};
+
+const saveAsExcelFile = (buffer, fileName) => {
+  import("file-saver").then((module) => {
+    if (module && module.default) {
+      let EXCEL_TYPE =
+        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8";
+      let EXCEL_EXTENSION = ".xlsx";
+      const data = new Blob([buffer], {
+        type: EXCEL_TYPE,
+      });
+
+      module.default.saveAs(
+        data,
+        fileName + "_export_" + new Date().getTime() + EXCEL_EXTENSION
+      );
+    }
+  });
+};
   return (
     <>
     
@@ -160,6 +242,9 @@ else{
               <option value="2">Deactive</option>
             </select>
           </div>
+          <span className="file" onClick={ToPdf}><AiFillFilePdf size="2rem"/>
+          <AiFillFileExcel onClick={toExcel} size="2rem"/></span>
+       
           <div>
             <button className="btn btn-primary" onClick={handleAdd}>
               Add

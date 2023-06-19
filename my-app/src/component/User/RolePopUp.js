@@ -121,11 +121,7 @@ const RolePopUp = () => {
         setSubmit(false)
      }
  },[error])
- const handleEditChange=(e)=>{
-    e.preventDefault()
-    const {name,value}=e.target
-     setRole({...role,[name]:value})
- }
+
  const editHandler=(e)=>{
     e.preventDefault()
     setError(validate(role))
@@ -136,7 +132,6 @@ const RolePopUp = () => {
     if(Object.keys(error).length===0 && editSubmit){
     EditRole()
     setEditSubmit(false)
-    setEditing(false)
     }else{
         setEditSubmit(false)
     }
@@ -144,27 +139,12 @@ const RolePopUp = () => {
   return (
     <div className='popupBg rolepopupBg'>
     <div className='popUp rolepopUp'>
-        {editing?(<>
+        {editing?(
             <div className='header'>
         Edit Role
-     </div>
-     <div className='body'>
-     <div className='mb-3'>
-            <label>RoleName</label>
-            <input type='text'
-            className='form-control' 
-            name='roleName'
-            value={role.roleName}
-            onChange={handleEditChange}
-            />
-    </div>
-        <button className='btn btn-primary'onClick={editHandler}>Edit</button>
-        <button className='btn btn-danger mx-1' onClick={handleCancel}>cancel</button>
-    </div>
-        </>):(<>
-            <div className='header'>
+     </div>):( <div className='header'>
         Add Role
-     </div>
+     </div>)}
      <div className='body'>
      <div className='mb-3'>
             <label>RoleName</label>
@@ -174,13 +154,13 @@ const RolePopUp = () => {
             value={role.roleName}
             onChange={handleChange}
             />
-         {error.roleName && (<div>{error.roleName}</div>)} 
     </div>
-        <button className='btn btn-primary'onClick={handleAdd}>add</button>
+    <div className='buttons'>
+       {editing?( <button className='btn btn-primary'onClick={editHandler}>Edit</button>):
+       (<button className='btn btn-primary'onClick={handleAdd}>add</button>)}
         <button className='btn btn-danger mx-1' onClick={handleCancel}>cancel</button>
     </div>
-        </>)}
-     
+   
         <DataTable
          columns={columns}
          data={roleList}
@@ -193,7 +173,7 @@ const RolePopUp = () => {
          striped
         />
    
-
+   </div>
     </div>
     </div>
   )

@@ -1,9 +1,29 @@
 .css-dip3t8{
     background-color: #2158a5 !important;
-    min-height:calc(100vh - 66px);
+    /* min-height:calc(100vh - 66px); */
+    /* position: fixed;
+    top:66px;
+    left: 0; */
+    min-height: 100vh;
     
 }
-
+.closer{
+    position: absolute;
+    top:0;
+    right:10px;
+    cursor: pointer;
+}
+.sidebar{
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    overflow-y: auto;
+    z-index: 9;
+}
+.sidebar h5{
+margin: 20px;
+color:#fff;
+}
 .sidebar a{
     color: white ;
     display: block;

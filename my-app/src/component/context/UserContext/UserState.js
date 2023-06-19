@@ -48,6 +48,7 @@ const UserState = (props) => {
         setLoading(false);
       } else {
         setLoading(false);
+        setUserList([])
       }
     });
   };

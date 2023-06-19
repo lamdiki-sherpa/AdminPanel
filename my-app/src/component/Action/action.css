@@ -6,7 +6,7 @@
     right: 10px;
     top:0;
 }
-.popUp__header{
+.popUp__head{
     position:absolute;
     top:0;
     left: 0;
@@ -14,10 +14,24 @@
     color:var(--color);
     width: 100%;
     padding: 5px;
-    
+
     
 }
 .popup-body{
-    /* margin-top: 15px; */
-    padding:20px;
+    padding:50px 20px;
 }
+.editpopUp,.deletepopUp,.viewpopUp{
+    position: absolute;
+    top:50%;
+    left:50%;
+    width:50%;
+    transform: translate(-50%,-50%);
+    background-color: white;
+    min-height: 50vh;
+    display: none;
+    z-index: 1000;
+}
+
+.deletepopUp{
+    min-height: 30vh !important;
+ }

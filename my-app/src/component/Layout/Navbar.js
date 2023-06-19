@@ -6,28 +6,28 @@ import {FaBars} from 'react-icons/fa'
 import UserContext from '../context/UserContext/UserContext'
 import $ from 'jquery'
 import UsewindowDimension from '../hooks/UsewindowDimension.js'
+import FiscalContext from '../context/FiscalContext/FiscalContext'
+
 const Navbar = () => {
-    const navigate=useNavigate()
+   
     const {width}=UsewindowDimension()
     const {show,setShow,smallScreen,setSmallScreen}=useContext(UserContext)
     const {logout,user}=useContext(AuthContext)
+    const {activeFiscal}=useContext(FiscalContext)
+    // console.log("active",activeFiscal)
     const handleClick=()=>{
       
        $('.logoutpopupBg').fadeIn(500)
        $('.logoutpopUp').fadeIn(500)
 
     }
-    const handleLogout=()=>{
-      localStorage.clear()
-        navigate('/')
-        logout()
-    }
+ 
     const handleSidebar=()=>{
       setShow(!show)
     }
 
-    console.log(smallScreen)
-    console.log("width",width)
+    // console.log(smallScreen)
+    // console.log("width",width)
 
     useEffect(() => {
       if(width<960){
@@ -40,30 +40,19 @@ const Navbar = () => {
     }, [width])
     
 
-    const handleClose=()=>{
-      $('.logoutpopupBg').fadeOut(500)
-      $('.logoutpopUp').fadeOut(500)
-    }
-  const LogoutPopUp=()=>{
-    return(
-      <div className='popupBg logoutpopupBg'>
-      <div className='popUp logoutpopUp text-center'>
-        <h6> Are you sure you want to logout?</h6>
-        <button className='btn btn-primary' onClick={handleLogout}>Logout</button>
-        <button className='btn btn-danger mx-1' onClick={handleClose}>close</button>
-       
-      </div>
-      </div>
-    )
-  }
-
+    
 
   return (
-<nav className="navbar navbar-light navbar__header">
+<>
   <div className="container-fluid">
    {/* <h4>Smartip</h4> */}
    <div className='icon' onClick={handleSidebar}>
    <FaBars/>
+   {activeFiscal.map((active)=>{
+    const {startYear,endYear}=active
+    return <span className='mx-3 mt-1'>Fiscal year:{startYear}-{endYear}</span>
+   })}
+   {/* <span>Fiscal year:{activeFiscal.startYear}-{activeFiscal.endYear}</span> */}
    </div>
   
    <div className='d-flex'>
@@ -76,8 +65,8 @@ const Navbar = () => {
    </div>
    
   </div>
-  <LogoutPopUp/>
-</nav>
+ 
+</>
   )
 }
 

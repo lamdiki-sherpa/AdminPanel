@@ -1,8 +1,25 @@
 .navbar__header{
+    width: calc(100% - 250px);
+    background-color: var(--primary);
+    color:var(--color);
+    padding:15px;
+    margin-left: 250px;
+    position: fixed;
+    top: 0;
+    z-index: 10;
+
+}
+
+.navbar__wide{
     width: 100%;
     background-color: var(--primary);
     color:var(--color);
     padding:15px;
+    margin-left:0px;
+    position: fixed;
+    top: 0;
+   
+    z-index: 8;
 }
 .info{
     height: 30px;
@@ -13,6 +30,9 @@
 .icon{
     cursor: pointer;
 }
-.logoutpopUp{
-    color:black;
+
+.buttons{
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
 }

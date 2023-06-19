@@ -55,10 +55,10 @@ const Edit = () => {
   return (
     <div className='popupBg editpopupBg'>
         <div className="popUp editpopUp">
-            <div className='popUp__header'>
+            <div className='header'>
                 <h6>Edit</h6>
             </div>
-            <div className="popup-body">
+            <div className="body">
                         <div className="row">
                             <div className="col-md-6">
                                 <div className="form-group">
@@ -82,17 +82,17 @@ const Edit = () => {
                             </label>
                         </div>
 
-                    </div>
+                 
 
-                    <div className="popup-close p-2 text-end">
+                    <div className="popup-close p-2 text-end buttons">
                         <button type="button" className="btn btn-primary" onClick={handleEdit}>
                             Edit
                         </button>
-                        <button type="button" className="btn btn-danger ms-3" onClick={handleClose}>Close</button>
+                        <button type="button" className="btn btn-danger mx-1" onClick={handleClose}>Close</button>
                     </div>
 
                 </div>
-
+                </div>
         </div>
   )
 }

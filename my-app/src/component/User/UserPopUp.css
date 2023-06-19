@@ -1,14 +1,81 @@
 .popupBg{
-    position: fixed;
-    top:0;
-    left: 0;
-    height: 100vh;
-    width: 100%;
-    background: rgba(0, 0,0, 0.5);
-    display: none;
-    z-index: 1000;
+  min-width: 100vw;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 100vh;
+  z-index: 20000;
+  background: rgba(0, 0, 0, 0.75);
+  display: none;
 }
 .popUp{
+  display: none;
+  width: 40%;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: auto;
+  z-index: 1000;
+  background: #fff;
+}
+
+
+
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color:blue;
+  width: 100%;
+  position: relative;
+  padding: 10px 10px;
+  color: #fff;
+  font-size: 20px;
+  display: flex;
+  justify-content: space-between;
+  z-index: 50;
+  align-items: center;
+}
+
+
+.body {
+  padding: 20px;
+  padding-bottom: 5rem;
+  max-height: 70vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  margin-bottom: 3rem;
+}
+.buttons{
+  position: fixed;
+  z-index: 1000;
+  bottom: 0;
+  right: 0;
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  /* background: #fff; */
+  background: #fbfbfb;
+  padding: 0.3rem 0;
+}
+@media(max-width:960px) {
+    .popUp{
+        width: 70%;
+    }
+}
+@media(max-width:640px) {
+    .popUp{
+        width: 90%;
+    }
+}
+
+.file{
+    cursor: pointer;
+}
+/* .rolepopUp{
     position: absolute;
     top:50%;
     left:50%;
@@ -18,10 +85,7 @@
     min-height: 90vh;
     display: none;
     z-index: 1000;
-}
-.body{
- padding: 20px;
-}
+} */
 .image_box{
     cursor: pointer;
     border:1px solid black;
@@ -61,4 +125,7 @@
     width: 100%;
     color: white;
     padding: 10px;
+}
+.rolepopupBg{
+    background: rgba(0, 0, 0,0.5) !important;
 }

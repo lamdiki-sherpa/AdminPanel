@@ -10,3 +10,8 @@ a,a:hover{
   --primary:#0145a2;
   --color:#ffffff;
 }
+.activeTab{
+  background-color: #0145a2;
+  color:white;
+  cursor: pointer;
+}

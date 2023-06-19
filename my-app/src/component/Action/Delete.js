@@ -28,15 +28,15 @@ const Delete=()=> {
         <div>
             <div className='popupBg deletepopupBg'>
                 <div className="popUp deletepopUp">
-                    <div className="popUp-head">
-                        <h6 className='m-0'>Deleting data</h6>
+                    <div className="header">
+                        <h6 className='m-0'>Delete data</h6>
                         <span className='close' onClick={handleClose}><AiOutlineClose /></span>
                     </div>
-                    <div className="popup-body">
-                        <h4>Are you sure you want to Delete??</h4>
+                    <div className="body">
+                        <h6>Are you sure you want to Delete??</h6>
                     </div>
 
-                    <div className="popup-close p-2 text-end">
+                    <div className="popup-close p-2 text-end buttons">
                         <button type="button" className="btn btn-primary " onClick={handleDelete}>
                             {isDeleting ? "Deleting" : "delete"}
                         </button>
